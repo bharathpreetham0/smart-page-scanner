@@ -1,0 +1,116 @@
+{
+  "type": "object",
+  "properties": {
+    "customerId": {
+      "title": "Customer Organization ID",
+      "type": "string"
+    },
+    "mockMode": {
+      "title": "Local Demo Mode",
+      "description": "When true, summaries are generated locally in the browser without calling the backend API.",
+      "type": "boolean",
+      "default": false
+    },
+    "mockLatencyMs": {
+      "title": "Mock Response Latency",
+      "description": "Optional simulated latency for local demo summaries.",
+      "type": "integer",
+      "default": 900
+    },
+    "apiEndpoint": {
+      "title": "Scan API Endpoint",
+      "type": "string"
+    },
+    "authBaseUrl": {
+      "title": "OAuth Base URL",
+      "type": "string"
+    },
+    "oauthClientId": {
+      "title": "OAuth Client ID",
+      "type": "string"
+    },
+    "oauthScopes": {
+      "title": "OAuth Scopes",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "allowedDomains": {
+      "title": "Allowed Domains",
+      "description": "List of domains the extension will scan. Empty means all domains are allowed.",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "summaryLength": {
+      "title": "Summary Length",
+      "type": "string",
+      "enum": [
+        "short",
+        "medium",
+        "long"
+      ],
+      "default": "medium"
+    },
+    "summaryStyle": {
+      "title": "Summary Style",
+      "type": "string",
+      "enum": [
+        "bullet",
+        "paragraph",
+        "structured"
+      ],
+      "default": "bullet"
+    },
+    "outputLanguage": {
+      "title": "Output Language",
+      "description": "Language code for summaries such as en, es, fr, or de.",
+      "type": "string",
+      "default": "en"
+    },
+    "autoScanDomains": {
+      "title": "Auto-Scan Domains",
+      "description": "Domains where the extension scans automatically on page load.",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "siteConfigOverrides": {
+      "title": "Site Config Overrides",
+      "description": "Override built-in site configs or add new domains.",
+      "type": "object"
+    },
+    "features": {
+      "type": "object",
+      "properties": {
+        "enableExport": {
+          "type": "boolean",
+          "default": true
+        },
+        "enableHistory": {
+          "type": "boolean",
+          "default": false
+        },
+        "enableTableExtraction": {
+          "type": "boolean",
+          "default": true
+        },
+        "enableFormExtraction": {
+          "type": "boolean",
+          "default": false
+        },
+        "enableTelemetry": {
+          "type": "boolean",
+          "default": true
+        }
+      }
+    }
+  },
+  "required": [
+    "customerId",
+    "apiEndpoint"
+  ]
+}

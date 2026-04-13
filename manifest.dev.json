@@ -1,0 +1,79 @@
+{
+  "manifest_version": 3,
+  "name": "Smart Page Scanner",
+  "version": "1.0.0",
+  "description": "Scan any webpage's DOM and get intelligent summaries delivered to your platform.",
+  "permissions": [
+    "activeTab",
+    "storage",
+    "scripting",
+    "identity",
+    "commands",
+    "tabs",
+    "alarms"
+  ],
+  "host_permissions": [
+    "https://*/*",
+    "http://localhost:3000/*",
+    "http://localhost:8787/*"
+  ],
+  "background": {
+    "service_worker": "background/service-worker.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "utils/storage.js",
+        "utils/auth.js",
+        "utils/api.js",
+        "utils/telemetry.js",
+        "content/site-configs.js",
+        "content/scanner.js",
+        "content/panel.js",
+        "content/content-script.js"
+      ],
+      "run_at": "document_idle",
+      "all_frames": false
+    }
+  ],
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_title": "Smart Page Scanner"
+  },
+  "commands": {
+    "trigger-scan": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+S",
+        "mac": "Command+Shift+S"
+      },
+      "description": "Scan the current page"
+    },
+    "toggle-panel": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+P",
+        "mac": "Command+Shift+P"
+      },
+      "description": "Toggle the summary panel"
+    }
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'none'; base-uri 'none'"
+  },
+  "storage": {
+    "managed_schema": "policies/managed-storage-schema.json"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "styles/panel.css"
+      ],
+      "matches": [
+        "<all_urls>"
+      ]
+    }
+  ]
+}
+

@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Smart Page Scanner</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --ink: #18314d;
+        --muted: #5d718b;
+        --border: rgba(18, 49, 82, 0.12);
+        --panel: rgba(255, 255, 255, 0.88);
+        --accent: #1a5f8c;
+        --accent-strong: #10355e;
+        --warm: #f18b47;
+        --success: #0f8b67;
+        --danger: #c15a3f;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        width: 320px;
+        min-height: 380px;
+        font: 13px/1.45 "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+        color: var(--ink);
+        background:
+          radial-gradient(circle at top left, rgba(241, 139, 71, 0.18), transparent 28%),
+          linear-gradient(180deg, #f4f8fc 0%, #edf4fb 100%);
+      }
+
+      .shell {
+        padding: 16px;
+        display: grid;
+        gap: 14px;
+      }
+
+      .hero {
+        padding: 18px 16px;
+        border-radius: 20px;
+        color: #ffffff;
+        background: linear-gradient(135deg, var(--accent-strong) 0%, var(--accent) 58%, var(--warm) 145%);
+        box-shadow: 0 18px 32px rgba(16, 53, 94, 0.18);
+      }
+
+      .eyebrow {
+        margin: 0 0 6px;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        opacity: 0.76;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: 22px;
+        line-height: 1.1;
+      }
+
+      .hero-copy {
+        margin: 8px 0 0;
+        font-size: 12px;
+        opacity: 0.9;
+      }
+
+      .card {
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        padding: 14px;
+        background: var(--panel);
+        box-shadow: 0 14px 28px rgba(17, 48, 84, 0.06);
+      }
+
+      .card-title {
+        margin: 0 0 12px;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: var(--muted);
+      }
+
+      .rows {
+        display: grid;
+        gap: 10px;
+      }
+
+      .row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .label {
+        color: var(--muted);
+      }
+
+      .value {
+        max-width: 170px;
+        text-align: right;
+        font-weight: 600;
+        word-break: break-word;
+      }
+
+      .status {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-weight: 600;
+      }
+
+      .dot {
+        width: 9px;
+        height: 9px;
+        border-radius: 999px;
+        background: #b3c3d4;
+      }
+
+      .dot.success {
+        background: var(--success);
+      }
+
+      .dot.error {
+        background: var(--danger);
+      }
+
+      .actions {
+        display: grid;
+        gap: 10px;
+      }
+
+      button {
+        width: 100%;
+        border: 0;
+        border-radius: 14px;
+        padding: 12px 14px;
+        cursor: pointer;
+        font: inherit;
+        font-weight: 700;
+        transition: transform 120ms ease, opacity 120ms ease;
+      }
+
+      button:hover {
+        transform: translateY(-1px);
+      }
+
+      button:disabled {
+        opacity: 0.48;
+        cursor: not-allowed;
+        transform: none;
+      }
+
+      .primary {
+        background: linear-gradient(135deg, var(--accent) 0%, var(--accent-strong) 100%);
+        color: #ffffff;
+      }
+
+      .secondary {
+        background: #edf4fb;
+        color: var(--ink);
+      }
+
+      .ghost {
+        background: rgba(255, 255, 255, 0.64);
+        color: var(--ink);
+        border: 1px solid var(--border);
+      }
+
+      .hint {
+        margin: 2px 0 0;
+        color: var(--muted);
+        font-size: 11px;
+        text-align: center;
+      }
+
+      .mode-badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 92px;
+        padding: 5px 10px;
+        border-radius: 999px;
+        background: #edf4fb;
+        color: var(--ink);
+        font-size: 11px;
+        font-weight: 700;
+      }
+
+      .mode-badge.demo {
+        background: #fff2e7;
+        color: #8d4d1c;
+      }
+
+      .error {
+        display: none;
+        padding: 11px 12px;
+        border-radius: 14px;
+        background: #fff4f1;
+        color: #8b2f1f;
+        border: 1px solid rgba(193, 90, 63, 0.18);
+      }
+    </style>
+  </head>
+  <body>
+    <main class="shell">
+      <section class="hero">
+        <p class="eyebrow">Enterprise Extension</p>
+        <h1>Smart Page Scanner</h1>
+        <p class="hero-copy">Scan the current page, extract structured content, and open the in-page summary panel.</p>
+      </section>
+
+      <section class="card">
+        <h2 class="card-title">Session</h2>
+        <div class="rows">
+          <div class="row">
+            <span class="label">Authentication</span>
+            <span class="status"><span class="dot" id="auth-dot"></span><span id="auth-text">Checking</span></span>
+          </div>
+          <div class="row">
+            <span class="label">Runtime mode</span>
+            <span class="mode-badge" id="mode-text">Loading</span>
+          </div>
+          <div class="row">
+            <span class="label">Customer</span>
+            <span class="value" id="customer-text">Loading</span>
+          </div>
+          <div class="row">
+            <span class="label">Current domain</span>
+            <span class="value" id="domain-text">Loading</span>
+          </div>
+          <div class="row">
+            <span class="label">Domain access</span>
+            <span class="value" id="domain-allowed-text">Loading</span>
+          </div>
+          <div class="row">
+            <span class="label">API endpoint</span>
+            <span class="value" id="endpoint-text">Loading</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="actions">
+        <button class="primary" id="scan-btn">Scan This Page</button>
+        <button class="secondary" id="toggle-btn">Open Panel</button>
+        <button class="ghost" id="mock-toggle-btn">Enable Local Demo Mode</button>
+        <button class="ghost" id="login-btn">Log In</button>
+        <button class="ghost" id="logout-btn" hidden>Log Out</button>
+      </section>
+
+      <div class="error" id="error-box"></div>
+      <p class="hint">Shortcuts: Ctrl+Shift+S to scan, Ctrl+Shift+P to toggle the panel.</p>
+    </main>
+
+    <script src="../utils/storage.js"></script>
+    <script src="popup.js"></script>
+  </body>
+</html>

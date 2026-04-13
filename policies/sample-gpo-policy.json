@@ -1,0 +1,52 @@
+{
+  "ExtensionSettings": {
+    "YOUR_EXTENSION_ID": {
+      "installation_mode": "force_installed",
+      "update_url": "https://clients2.google.com/service/update2/crx",
+      "managed_configuration": {
+        "customerId": "CUSTOMER-001",
+        "mockMode": false,
+        "mockLatencyMs": 900,
+        "apiEndpoint": "https://api.yourcompany.com",
+        "authBaseUrl": "https://login.yourcompany.com",
+        "oauthClientId": "smart-page-scanner",
+        "oauthScopes": [
+          "openid",
+          "profile",
+          "scanner:read",
+          "scanner:write"
+        ],
+        "allowedDomains": [
+          "internal.customer.com",
+          "jira.customer.com"
+        ],
+        "autoScanDomains": [
+          "internal.customer.com"
+        ],
+        "summaryStyle": "bullet",
+        "summaryLength": "medium",
+        "outputLanguage": "en",
+        "features": {
+          "enableExport": true,
+          "enableHistory": false,
+          "enableTableExtraction": true,
+          "enableFormExtraction": false,
+          "enableTelemetry": true
+        },
+        "siteConfigOverrides": {
+          "internal.customer.com": {
+            "scanTargets": [
+              "main",
+              ".page-content"
+            ],
+            "excludeSelectors": [
+              ".top-nav",
+              ".chat-widget"
+            ],
+            "autoScan": true
+          }
+        }
+      }
+    }
+  }
+}

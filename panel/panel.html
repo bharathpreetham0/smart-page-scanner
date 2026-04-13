@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Smart Page Scanner Preview</title>
+    <style>
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background: linear-gradient(180deg, #f4f8fc 0%, #edf4fb 100%);
+        font: 14px/1.5 "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+        color: #18314d;
+      }
+
+      main {
+        max-width: 880px;
+        margin: 0 auto;
+        padding: 32px 20px 48px;
+      }
+
+      h1 {
+        margin: 0 0 10px;
+        font-size: 32px;
+      }
+
+      .lead {
+        margin: 0 0 22px;
+        color: #5d718b;
+      }
+
+      .card {
+        border-radius: 18px;
+        background: rgba(255, 255, 255, 0.92);
+        border: 1px solid rgba(18, 49, 82, 0.12);
+        box-shadow: 0 16px 28px rgba(17, 48, 84, 0.06);
+        padding: 20px;
+      }
+
+      pre {
+        margin: 0;
+        white-space: pre-wrap;
+        word-break: break-word;
+        font: 12px/1.55 ui-monospace, SFMono-Regular, Menlo, monospace;
+      }
+
+      .empty {
+        color: #5d718b;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Smart Page Scanner Preview</h1>
+      <p class="lead">This standalone page shows the last cached summary metadata saved in extension session storage.</p>
+      <section class="card">
+        <pre id="output" class="empty">Loading session cache...</pre>
+      </section>
+    </main>
+
+    <script src="../utils/storage.js"></script>
+    <script src="panel.js"></script>
+  </body>
+</html>
+
